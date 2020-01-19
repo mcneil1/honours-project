@@ -28,6 +28,8 @@ public class TwoOpt
 		
 		tour = initialise();
 		
+		System.out.println("Initial distance: " + tour.getDistance() + "km");
+		
 		for(int i = 0; i < maxIterations; i++)
 		{
 			//copy the tour

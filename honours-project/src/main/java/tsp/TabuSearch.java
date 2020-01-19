@@ -2,6 +2,7 @@ package tsp;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class TabuSearch {
 	static String fileName;
@@ -11,8 +12,8 @@ public class TabuSearch {
 	static Tour tour;
 	static int numberOfVertices = 0;
 	static double distance;
-	static int tabuSize; 
-	static int neighbourhoodSize = 50;
+	static int tabuSize = 1000; 
+	static int neighbourhoodSize = 1000;
 	static ArrayList<String> tabuList = new ArrayList<String>();
 	static ArrayList<Vertex> oldTour = new ArrayList<Vertex>();
 	
@@ -97,37 +98,33 @@ public class TabuSearch {
 	
 	public Tour generateNeighbourhood(Tour t)
 	{
-		int x = 0;
-		int y = 1;
 		ArrayList<Tour> neighbourhood = new ArrayList<Tour>();
 		ArrayList<Double> distances = new ArrayList<Double>();
 		
-		while(x < t.tourSize()-1)
+		while(neighbourhood.size() < neighbourhoodSize)
 		{
-			for(int i = x; i < t.tourSize()-1; i++)
-			{
+
 				Tour newTour = new Tour();
 				for(int oldTour = 0; oldTour < t.tourSize(); oldTour++)
 				{
 					newTour.setVertex(oldTour, t.getVertex(oldTour));
 				}
-				Vertex v1 = newTour.getVertex(x);
-				Vertex v2 = newTour.getVertex(y);
+				
+				Random random = new Random();
+				int index1 = random.nextInt(numberOfVertices);
+				int index2 = random.nextInt(numberOfVertices);
+				
+				Vertex v1 = newTour.getVertex(index1);
+				Vertex v2 = newTour.getVertex(index2);
 
-				newTour.setVertex(x,v2);
-				newTour.setVertex(y,v1);
+				newTour.setVertex(index1,v2);
+				newTour.setVertex(index2,v1);
 
 				
 				distances.add(newTour.getDistance());
 				neighbourhood.add(newTour);
-				y++;
-				if(y==t.tourSize())
-				{
-					x++;
-					y = x+1;
-				}
 			}
-		}
+		
 		
 		
 		Collections.sort(distances);
