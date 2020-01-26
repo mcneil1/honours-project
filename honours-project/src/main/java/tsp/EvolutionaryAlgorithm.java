@@ -6,8 +6,8 @@ import java.util.Random;
 public class EvolutionaryAlgorithm 
 {
 	//Evolutionary algorithm parameters 
-	private static double mutationRate = 0.015;
-	private static final int tournamentSize = 5;
+	private static double mutationRate = 0.01;
+	private static final int tournamentSize = 50;
 	static String fileName;
 	static int iteration = 0;
 	static int maxIterations;
@@ -140,10 +140,16 @@ public class EvolutionaryAlgorithm
 	{
 		//Create a tournament population
 		Population tournament = new Population(tournamentSize, false);
+		ArrayList<Integer> indivs = new ArrayList<Integer>();
 		//add 'tournamentSize' random tours to the tournament
 		for(int i = 0; i < tournamentSize; i++)
 		{
 			int randomId = (int) (Math.random()*pop.populationSize());
+			while(indivs.contains(randomId))
+			{
+				randomId = (int) (Math.random()*pop.populationSize());
+			}
+			indivs.add(randomId);
 			tournament.saveTour(i, pop.getTour(randomId));
 		}
 		//get fittest
@@ -154,7 +160,7 @@ public class EvolutionaryAlgorithm
 	public void runEA()
 	{
 		//initialise population
-		Population pop = new Population(5, true);
+		Population pop = new Population(250, true);
 
 		System.out.println("Solver is EVOLUTIONARY ALGORITHM");
 		System.out.println("Filename is " + fileName);
@@ -187,5 +193,9 @@ public class EvolutionaryAlgorithm
 			System.out.println();
 			verboseTour.clear();
 		}
+		
+		URL_Builder myURL = new URL_Builder(bestTour);
+		myURL.getURL();
+		
 	}
 }

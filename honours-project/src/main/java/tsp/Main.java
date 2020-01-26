@@ -21,6 +21,7 @@ public class Main
 	static int HILL_CLIMBER = 3;
 	static int TABU_SEARCH = 4;
 	static int TWO_OPT = 5;
+	static int NEAREST_NEIGHBOUR = 6;
 	static double startTemp = 200;
 	static double endTemp = 0;
 	static double coolingRate = 0.995;
@@ -53,6 +54,7 @@ public class Main
 		options.addOption("HC", false, "Use hill climber");
 		options.addOption("TS", false, "Use tabu search");
 		options.addOption("TO", false, "Use 2-opt");
+		options.addOption("NN", false, "Use Nearest Neighbour");
 		
 		CommandLineParser parser = new GnuParser();
 		try
@@ -89,6 +91,8 @@ public class Main
 				solver = TABU_SEARCH;
 			if (cmdLine.hasOption("TO"))
 				solver = TWO_OPT;
+			if (cmdLine.hasOption("NN"))
+				solver = NEAREST_NEIGHBOUR;
 		}
 		catch (final ParseException exp)
 		{
@@ -167,6 +171,15 @@ public class Main
 			for (int i = 0; i < numRuns; i++)
 			{
 				myTO.runTO();
+			}
+		}
+		else if (solver == NEAREST_NEIGHBOUR)
+		{
+			NearestNeighbour myNN = new NearestNeighbour(fileName, verbose, count);
+			
+			for (int i = 0; i < numRuns; i++)
+			{
+				myNN.runNN();
 			}
 		}
 		else

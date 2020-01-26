@@ -105,6 +105,10 @@ public class SimulatedAnnealing
 			System.out.println();
 			verboseTour.clear();
 		}
+		
+		URL_Builder myURL = new URL_Builder(tour);
+		myURL.getURL();
+		
 	}
 	
 	public Tour initialise()

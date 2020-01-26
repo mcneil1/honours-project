@@ -101,6 +101,8 @@ public class TwoOpt
 			verboseTour.clear();
 		}
 		
+		URL_Builder myURL = new URL_Builder(tour);
+		myURL.getURL();
 		
 	}
 	
