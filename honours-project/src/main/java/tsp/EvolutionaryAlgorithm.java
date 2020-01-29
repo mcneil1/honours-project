@@ -6,8 +6,13 @@ import java.util.Random;
 public class EvolutionaryAlgorithm 
 {
 	//Evolutionary algorithm parameters 
+<<<<<<< HEAD
 	private static double mutationRate = 0.01;
 	private static final int tournamentSize = 50;
+=======
+	private static double mutationRate = 0.015;
+	private static final int tournamentSize = 5;
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	static String fileName;
 	static int iteration = 0;
 	static int maxIterations;
@@ -140,16 +145,22 @@ public class EvolutionaryAlgorithm
 	{
 		//Create a tournament population
 		Population tournament = new Population(tournamentSize, false);
+<<<<<<< HEAD
 		ArrayList<Integer> indivs = new ArrayList<Integer>();
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		//add 'tournamentSize' random tours to the tournament
 		for(int i = 0; i < tournamentSize; i++)
 		{
 			int randomId = (int) (Math.random()*pop.populationSize());
+<<<<<<< HEAD
 			while(indivs.contains(randomId))
 			{
 				randomId = (int) (Math.random()*pop.populationSize());
 			}
 			indivs.add(randomId);
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 			tournament.saveTour(i, pop.getTour(randomId));
 		}
 		//get fittest
@@ -160,7 +171,11 @@ public class EvolutionaryAlgorithm
 	public void runEA()
 	{
 		//initialise population
+<<<<<<< HEAD
 		Population pop = new Population(250, true);
+=======
+		Population pop = new Population(5, true);
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 
 		System.out.println("Solver is EVOLUTIONARY ALGORITHM");
 		System.out.println("Filename is " + fileName);
@@ -193,9 +208,12 @@ public class EvolutionaryAlgorithm
 			System.out.println();
 			verboseTour.clear();
 		}
+<<<<<<< HEAD
 		
 		URL_Builder myURL = new URL_Builder(bestTour);
 		myURL.getURL();
 		
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	}
 }

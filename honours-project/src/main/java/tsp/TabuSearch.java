@@ -1,8 +1,11 @@
 package tsp;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Collections;
 import java.util.Random;
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 
 public class TabuSearch {
 	static String fileName;
@@ -12,8 +15,12 @@ public class TabuSearch {
 	static Tour tour;
 	static int numberOfVertices = 0;
 	static double distance;
+<<<<<<< HEAD
 	static int tabuSize = 1000; 
 	static int neighbourhoodSize = 1000;
+=======
+	static int tabuSize; 
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	static ArrayList<String> tabuList = new ArrayList<String>();
 	static ArrayList<Vertex> oldTour = new ArrayList<Vertex>();
 	
@@ -53,6 +60,7 @@ public class TabuSearch {
 				tabuList.add(tour.toString());
 			}
 			
+<<<<<<< HEAD
 			double dist = tour.getDistance();
 			tour = generateNeighbourhood(tour);
 			double newDist = tour.getDistance();
@@ -70,6 +78,14 @@ public class TabuSearch {
 			iteration++;
 			
 			
+=======
+			tour = generateNeighbourhood(tour);	
+			for(int ii = 0; ii < tour.tourSize(); ii++)
+			{
+				oldTour.add(tour.getVertex(ii));
+			}
+			iteration++;
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		}
 		System.out.println("Finished");
 		System.out.println("Final distance: " + tour.getDistance() + "km");
@@ -87,10 +103,13 @@ public class TabuSearch {
 			System.out.println();
 			verboseTour.clear();
 		}
+<<<<<<< HEAD
 		
 		URL_Builder myURL = new URL_Builder(tour);
 		myURL.getURL();
 		
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	}
 	
 	public Tour initialise()
@@ -103,6 +122,7 @@ public class TabuSearch {
 	public Tour generateNeighbourhood(Tour t)
 	{
 		ArrayList<Tour> neighbourhood = new ArrayList<Tour>();
+<<<<<<< HEAD
 		ArrayList<Double> distances = new ArrayList<Double>();
 		
 		while(neighbourhood.size() < neighbourhoodSize)
@@ -160,6 +180,43 @@ public class TabuSearch {
 		*/
 		return t;
 		
+=======
+		double bestDist = 0;
+		int index = 0;
+		for(int i = 1; i < t.tourSize(); i++)
+		{
+			Tour newTour = new Tour();
+			for(int ii = 0; ii < newTour.tourSize(); ii++)
+			{
+				newTour.setVertex(ii, oldTour.get(ii));
+			}
+			
+			Vertex v0 = newTour.getVertex(0);
+			Vertex v = newTour.getVertex(i);
+			
+			newTour.setVertex(0, v);
+			newTour.setVertex(i, v0);
+			
+			neighbourhood.add(newTour);	
+		}
+		
+		for(Tour tour : neighbourhood)
+		{
+			if(bestDist == 0 && !tabuList.contains(tour.toString()))
+			{
+				bestDist = tour.getDistance();
+				index = neighbourhood.indexOf(tour);
+			}
+			else if(tour.getDistance() < bestDist && !tabuList.contains(tour.toString()))
+			{
+				bestDist = tour.getDistance();
+				index = neighbourhood.indexOf(tour);
+			}
+		}
+		
+		return neighbourhood.get(index);
+
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	}
 
 }

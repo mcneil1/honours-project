@@ -4,14 +4,22 @@ public class Vertex
 	double x; 
 	double y;
 	int id;
+<<<<<<< HEAD
 	String name;
 	
 	public void setVertex(double x, double y, int id, String name)
+=======
+	
+	public void setVertex(double x, double y, int id)
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	{
 		this.x = x;
 		this.y = y;
 		this.id = id;
+<<<<<<< HEAD
 		this.name = name;
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	}
 	
 	public int getId()
@@ -19,11 +27,14 @@ public class Vertex
 		return this.id;
 	}
 	
+<<<<<<< HEAD
 	public String getName()
 	{
 		return this.name;
 	}
 	
+=======
+>>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	public double getX()
 	{
 		return this.x;
