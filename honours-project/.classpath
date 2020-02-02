@@ -24,15 +24,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
-=======
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
@@ -40,12 +34,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
 	<classpathentry kind="lib" path="/ECO week4/lib/commons-cli-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/USER/Downloads/okhttp-3.9.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/USER/Downloads/slf4j-simple-1.7.30.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/Rmcne/Downloads/commons-cli-1.4-bin/commons-cli-1.4/commons-cli-1.4.jar"/>
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -52,7 +52,6 @@ public class HillClimber {
 		if(verbose)
 		{
 			ArrayList<Integer> verboseTour = new ArrayList<Integer>();
-<<<<<<< HEAD
 			//ArrayList<String> nameTour = new ArrayList<String>();
 			for(int i = 0; i < tour.tourSize(); i++)
 			{
@@ -69,16 +68,6 @@ public class HillClimber {
 		URL_Builder myURL = new URL_Builder(tour);
 		myURL.getURL();
 		
-=======
-			for(int i = 0; i < tour.tourSize(); i++)
-			{
-				verboseTour.add(tour.getVertex(i).getId());
-			}
-			System.out.println(verboseTour);
-			System.out.println();
-			verboseTour.clear();
-		}
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	}
 	
 	public Tour initialise()

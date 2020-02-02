@@ -4,17 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-<<<<<<< HEAD
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
-=======
-import java.util.ArrayList;
-
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
@@ -22,21 +14,14 @@ import org.apache.commons.cli.ParseException;
 
 public class Main 
 {
-<<<<<<< HEAD
 	static String fileLocation = "C:\\Users\\USER\\Documents\\Uni\\";
-=======
-	static String fileLocation = "C:\\Users\\Rmcne\\eclipse-workspace\\honours-project\\";
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	static String fileName = "vertices.csv";
 	static int EVOLUTIONARY_ALGORITHM = 1;
 	static int SIMULATED_ANNEALING = 2;
 	static int HILL_CLIMBER = 3;
 	static int TABU_SEARCH = 4;
-<<<<<<< HEAD
 	static int TWO_OPT = 5;
 	static int NEAREST_NEIGHBOUR = 6;
-=======
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 	static double startTemp = 200;
 	static double endTemp = 0;
 	static double coolingRate = 0.995;
@@ -68,15 +53,10 @@ public class Main
 		options.addOption("SA", false, "Use simmulated annealing");
 		options.addOption("HC", false, "Use hill climber");
 		options.addOption("TS", false, "Use tabu search");
-<<<<<<< HEAD
 		options.addOption("TO", false, "Use 2-opt");
 		options.addOption("NN", false, "Use Nearest Neighbour");
 		
 		CommandLineParser parser = new GnuParser();
-=======
-		
-		CommandLineParser parser = new DefaultParser();
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		try
 		{
 			CommandLine cmdLine = parser.parse(options, args);
@@ -109,13 +89,10 @@ public class Main
 				solver = SIMULATED_ANNEALING;
 			if (cmdLine.hasOption("TS"))
 				solver = TABU_SEARCH;
-<<<<<<< HEAD
 			if (cmdLine.hasOption("TO"))
 				solver = TWO_OPT;
 			if (cmdLine.hasOption("NN"))
 				solver = NEAREST_NEIGHBOUR;
-=======
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		}
 		catch (final ParseException exp)
 		{
@@ -139,7 +116,6 @@ public class Main
 				
 				//System.out.println("Latitude = " + location[1] + " Longitude = " + location[2]);
 				
-<<<<<<< HEAD
 				Double lat = Double.valueOf(location[2]);
 				Double lon = Double.valueOf(location[3]);
 				int id = Integer.valueOf(location[0]);
@@ -150,16 +126,6 @@ public class Main
 				TourManager.addVertex(newVertex);
 			}
 			br.close();
-=======
-				Double lat = Double.valueOf(location[1]);
-				Double lon = Double.valueOf(location[2]);
-				int id = Integer.valueOf(location[0]);
-				
-				Vertex newVertex = new Vertex();
-				newVertex.setVertex(lat, lon, id);
-				TourManager.addVertex(newVertex);
-			}
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		}
 		catch(FileNotFoundException e)
 		{
@@ -198,7 +164,6 @@ public class Main
 				myTS.runTS();
 			}
 		}
-<<<<<<< HEAD
 		else if (solver == TWO_OPT)
 		{
 			TwoOpt myTO = new TwoOpt(fileName, iterations, verbose, count);
@@ -217,8 +182,6 @@ public class Main
 				myNN.runNN();
 			}
 		}
-=======
->>>>>>> 668bbb958ad3ea8cc4a8a69959e9c9f3d36826c3
 		else
 		{
 			EvolutionaryAlgorithm myEA = new EvolutionaryAlgorithm(fileName,iterations, verbose, count);
