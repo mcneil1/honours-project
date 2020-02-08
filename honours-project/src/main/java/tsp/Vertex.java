@@ -36,24 +36,26 @@ public class Vertex
 	
 	public double getDistance(Vertex vertex)
 	{
-		//phi = lat, lamda = lon
+		
 		double earthRadius = 6371;
-		double lon1 = this.getX();
-		double lat1 = this.getY();
-		double lon2 = vertex.getX();
-		double lat2 = vertex.getY();
+		double lon1 = this.getX() * Math.PI / 180;
+		double lat1 = this.getY()* Math.PI / 180;
+		double lon2 = vertex.getX()* Math.PI / 180;
+		double lat2 = vertex.getY()* Math.PI / 180;
+		double latDif = (lat2-lat1);
+		double lonDif = (lon2-lon1);
 		
-		//central subtended angle formula
-		double a = Math.sin(lat1);
-		double b = Math.sin(lat2);
-		double c = Math.cos(lat1);
-		double d = Math.cos(lat2);
-		double e = Math.cos(Math.abs(lon1 - lon2));
+		//Haversine formula
+		double a = (Math.sin(latDif/2) * Math.sin(latDif/2)) + 
+				Math.cos(lat1) * Math.cos(lat2) *
+				(Math.sin(lonDif/2) * Math.sin(lonDif/2));
 		
-		double alpha = Math.acos((a*b) + (c*d*e));
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+
 		
-		//distance is returned in kl
-		double distance = (2 * Math.PI * earthRadius * (alpha/360));
+		//distance is returned in km
+		double distance = (earthRadius * c);
 		return distance;
 		
 	}
