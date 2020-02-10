@@ -19,7 +19,7 @@ public class TwoOpt
 		numberOfVertices = count;
 	}
 	
-	public void runTO()
+	public Tour runTO()
 	{
 		System.out.println("Solver is 2-OPT");
 		System.out.println("Filename is " + fileName);
@@ -83,7 +83,7 @@ public class TwoOpt
 			}
 			iteration++;
 		}
-		
+		iteration = 0;
 		System.out.println("Finished");
 		System.out.println("Final distance: " + tour.getDistance() + "km");
 		System.out.println("Solution: ");
@@ -101,8 +101,7 @@ public class TwoOpt
 			verboseTour.clear();
 		}
 		
-		URL_Builder myURL = new URL_Builder(tour);
-		myURL.getURL();
+		return tour;
 		
 	}
 	

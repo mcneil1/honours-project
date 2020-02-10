@@ -9,7 +9,7 @@ public class URL_Builder
 		tour = t;
 	}
 	
-	public void getURL()
+	public String getURL()
 	{
 		String UrlStart = "http://localhost:8989/maps/?";
 		String points = "";
@@ -21,6 +21,8 @@ public class URL_Builder
 			points += "point="+ vertex.getX() + "%2C" + vertex.getY() + "&"; 
 		}
 		points += "point="+ tour.getVertex(0).getX()+ "%2C" + tour.getVertex(0).getY() + "&";
-		System.out.println(UrlStart + points + UrlEnd);
+		
+		String link = UrlStart + points + UrlEnd;
+		return link;
 	}
 }

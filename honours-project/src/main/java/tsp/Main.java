@@ -1,9 +1,13 @@
 package tsp;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -31,6 +35,7 @@ public class Main
 	static int solver = EVOLUTIONARY_ALGORITHM;
 	static int numRuns = 1;
 	static int count = 0;
+	static String filePath = "results.csv";
 	
 	
 	public static void main(String[] args)
@@ -143,7 +148,14 @@ public class Main
 			
 			for(int i = 0; i < numRuns; i++)
 			{
-				mySA.runSA();
+				Tour tour = mySA.runSA();
+				
+				URL_Builder myURL = new URL_Builder(tour);
+				String link = myURL.getURL();
+				
+				String algorithm = "Simulated Annealing";
+				
+				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
 		}
 		else if (solver == HILL_CLIMBER)
@@ -152,7 +164,14 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
-				myHC.runHC();
+				Tour tour = myHC.runHC();
+				
+				URL_Builder myURL = new URL_Builder(tour);
+				String link = myURL.getURL();
+				
+				String algorithm = "Hill Climber";
+				
+				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
 		}
 		else if (solver == TABU_SEARCH)
@@ -161,7 +180,14 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
-				myTS.runTS();
+				Tour tour = myTS.runTS();
+				
+				URL_Builder myURL = new URL_Builder(tour);
+				String link = myURL.getURL();
+				
+				String algorithm = "Tabu Search";
+				
+				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
 		}
 		else if (solver == TWO_OPT)
@@ -170,7 +196,14 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
-				myTO.runTO();
+				Tour tour = myTO.runTO();
+				
+				URL_Builder myURL = new URL_Builder(tour);
+				String link = myURL.getURL();
+				
+				String algorithm = "2-OPt";
+				
+				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
 		}
 		else if (solver == NEAREST_NEIGHBOUR)
@@ -179,7 +212,14 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
-				myNN.runNN();
+				Tour tour = myNN.runNN();
+				
+				URL_Builder myURL = new URL_Builder(tour);
+				String link = myURL.getURL();
+				
+				String algorithm = "Nearest Neighbour";
+				
+				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
 		}
 		else
@@ -188,8 +228,34 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
-				myEA.runEA();
+				Tour tour = myEA.runEA();
+				
+				URL_Builder myURL = new URL_Builder(tour);
+				String link = myURL.getURL();
+				
+				String algorithm = "Evolutionary Algorithm";
+				
+				saveData(algorithm, link, tour.getDistance(), filePath);
 			}
 		}
 	}
+	
+	public static void saveData(String algorithm, String link, double dist, String filepath)
+	{
+		try
+		{
+			FileWriter fw = new FileWriter(filepath,true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			pw.println(algorithm+","+fileName+","+dist+","+link);
+			pw.flush();
+			pw.close();
+		}
+		catch(Exception E)
+		{
+			System.out.println(E.getLocalizedMessage());
+		}
+	}
+	
 }

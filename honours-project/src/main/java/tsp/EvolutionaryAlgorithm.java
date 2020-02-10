@@ -157,9 +157,10 @@ public class EvolutionaryAlgorithm
 		return fittest;
 	}
 
-	public void runEA()
+	public Tour runEA()
 	{
 		//initialise population
+		bestTour = null;
 		Population pop = new Population(250, true);
 
 		System.out.println("Solver is EVOLUTIONARY ALGORITHM");
@@ -176,7 +177,10 @@ public class EvolutionaryAlgorithm
 			pop = EvolutionaryAlgorithm.evolvePopulation(pop);
 			iteration++;
 		}
-
+		
+		iteration = 0;
+		pop = null;
+		
 		System.out.println("Finished");
 		System.out.println("Final distance: " + bestTour.getDistance() + "km");
 		System.out.println("Solution: ");
@@ -194,8 +198,8 @@ public class EvolutionaryAlgorithm
 			verboseTour.clear();
 		}
 		
-		URL_Builder myURL = new URL_Builder(bestTour);
-		myURL.getURL();
+		return bestTour;
+		
 		
 	}
 }

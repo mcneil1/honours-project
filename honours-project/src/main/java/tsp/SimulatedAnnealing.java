@@ -9,10 +9,10 @@ public class SimulatedAnnealing
 	static int iteration = 0;
 	static int maxIterations;
 	static boolean verbose;
-	static double startTemperature;
+	static double startTemperature = 200;
 	static double temperature;
-	static double endTemperature;
-	static double coolingRate;
+	static double endTemperature = 0;
+	static double coolingRate = 0.995;
 	static Tour tour;
 	static ArrayList<Vertex> oldTour = new ArrayList<Vertex>();;
 	static int numberOfVertices = 0;
@@ -30,7 +30,7 @@ public class SimulatedAnnealing
 		numberOfVertices = count;
 	}
 	
-	public void runSA()
+	public Tour runSA()
 	{
 		System.out.println("Solver is SIMMULATED ANNEALING");
 		System.out.println("Filename is " + fileName);
@@ -39,6 +39,7 @@ public class SimulatedAnnealing
 		
 		tour = initialise();
 		temperature = startTemperature;
+		
 		for(int i = 0; i < tour.tourSize(); i++)
 		{
 			oldTour.add(tour.getVertex(i));
@@ -88,7 +89,7 @@ public class SimulatedAnnealing
 			iteration++;
 			
 		}
-		
+		iteration = 0;
 		System.out.println("Finished");
 		System.out.println("Final distance: " + tour.getDistance() + "km");
 		System.out.println("Solution: ");
@@ -106,8 +107,7 @@ public class SimulatedAnnealing
 			verboseTour.clear();
 		}
 		
-		URL_Builder myURL = new URL_Builder(tour);
-		myURL.getURL();
+		return tour;
 		
 	}
 	

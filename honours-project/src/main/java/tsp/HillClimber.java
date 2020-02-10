@@ -21,7 +21,7 @@ public class HillClimber {
 		numberOfVertices = count;
 	}
 	
-	public void runHC()
+	public Tour runHC()
 	{
 		System.out.println("Solver is HILL CLIMBER");
 		System.out.println("Filename is " + fileName);
@@ -44,6 +44,7 @@ public class HillClimber {
 			
 		}
 		
+		iteration = 0;
 		System.out.println("Finished");
 		System.out.println("Final distance: " + tour.getDistance() + "km");
 		System.out.println("Solution: ");
@@ -65,8 +66,7 @@ public class HillClimber {
 			//nameTour.clear();
 		}
 		
-		URL_Builder myURL = new URL_Builder(tour);
-		myURL.getURL();
+		return tour;
 		
 	}
 	

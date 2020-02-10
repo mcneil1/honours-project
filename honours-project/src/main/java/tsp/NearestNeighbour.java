@@ -23,7 +23,7 @@ public class NearestNeighbour
 		numberOfVertices = count;
 	}
 	
-	public void runNN()
+	public Tour runNN()
 	{
 		System.out.println("Solver is NEAREST NEIGHBOUR");
 		System.out.println("Filename is " + fileName);
@@ -83,7 +83,7 @@ public class NearestNeighbour
 
 		
 		
-
+		index = 0;
 		System.out.println();
 		System.out.println("Finished");
 		System.out.println("Final distance: " + tour.getDistance() + "km");
@@ -91,8 +91,8 @@ public class NearestNeighbour
 		System.out.println(tour);
 		
 		System.out.println();
-		URL_Builder myURL = new URL_Builder(tour);
-		myURL.getURL();
+		
+		return tour; 
 	}
 	
 	public Tour initialise()

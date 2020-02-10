@@ -26,7 +26,7 @@ public class TabuSearch {
 		tabuSize = size;
 	}
 	
-	public void runTS()
+	public Tour runTS()
 	{
 		System.out.println("Solver is TABU SEARCH");
 		System.out.println("Filename is " + fileName);
@@ -71,6 +71,8 @@ public class TabuSearch {
 			
 			
 		}
+		iteration = 0;
+		tabuList.clear();
 		System.out.println("Finished");
 		System.out.println("Final distance: " + tour.getDistance() + "km");
 		System.out.println("Solution: ");
@@ -88,8 +90,7 @@ public class TabuSearch {
 			verboseTour.clear();
 		}
 		
-		URL_Builder myURL = new URL_Builder(tour);
-		myURL.getURL();
+		return tour;
 		
 	}
 	
