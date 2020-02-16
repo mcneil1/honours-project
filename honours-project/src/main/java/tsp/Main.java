@@ -35,7 +35,7 @@ public class Main
 	static int solver = EVOLUTIONARY_ALGORITHM;
 	static int numRuns = 1;
 	static int count = 0;
-	static String filePath = "test_results.csv";
+	static String filePath = "results.csv";
 	
 	
 	public static void main(String[] args) throws Exception
@@ -152,7 +152,7 @@ public class Main
 				URL_Builder myURL = new URL_Builder(tour);
 				String link = myURL.getURL();
 				
-				String algorithm = "Simulated Annealing";
+				String algorithm = "Simulated_Annealing";
 				
 				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
@@ -168,7 +168,7 @@ public class Main
 				URL_Builder myURL = new URL_Builder(tour);
 				String link = myURL.getURL();
 				
-				String algorithm = "Hill Climber";
+				String algorithm = "Hill_Climber";
 				
 				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
@@ -184,7 +184,7 @@ public class Main
 				URL_Builder myURL = new URL_Builder(tour);
 				String link = myURL.getURL();
 				
-				String algorithm = "Tabu Search";
+				String algorithm = "Tabu_Search";
 				
 				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
@@ -200,7 +200,7 @@ public class Main
 				URL_Builder myURL = new URL_Builder(tour);
 				String link = myURL.getURL();
 				
-				String algorithm = "2-OPt";
+				String algorithm = "2_OPt";
 				
 				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
@@ -216,7 +216,7 @@ public class Main
 				URL_Builder myURL = new URL_Builder(tour);
 				String link = myURL.getURL();
 				
-				String algorithm = "Nearest Neighbour";
+				String algorithm = "Nearest_Neighbour";
 				
 				saveData(algorithm,link, tour.getDistance(), filePath);
 			}
@@ -229,15 +229,15 @@ public class Main
 			{
 				Tour tour = myEA.runEA();
 				
+				String algorithm = "Evolutionary_Algorithm";
+				
 				URL_Builder myURL = new URL_Builder(tour);
-				String curl = myURL.getCurl();
+				String curl = myURL.getCurl(algorithm);
 				
 				System.out.println(curl);
-		
-				String algorithm = "Evolutionary Algorithm";
 				
-				
-				//saveData(algorithm, link, tour.getDistance(), filePath);
+				saveTour(algorithm, tour);
+				//saveData(algorithm, curl, tour.getDistance(), filePath);
 				
 			}
 		}
@@ -251,7 +251,42 @@ public class Main
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			pw.println(dist+","+"800");
+			pw.println(link);
+			pw.flush();
+			pw.close();
+		}
+		catch(Exception E)
+		{
+			System.out.println(E.getLocalizedMessage());
+		}
+	}
+	
+	public static void saveTour(String algorithm, Tour tour)
+	{
+		String filepath = algorithm + "_tour.json";
+		try
+		{
+			FileWriter fw = new FileWriter(filepath,false);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			pw.println("{"
+					+ "\n\t\"elevation\": false,"
+					+"\n\t\"vehicle\": \"car\","
+					+"\n\t\"points\": [");
+			for(int i = 0; i < tour.tourSize();i++)
+			{
+				if(i == tour.tourSize()-1)
+				{
+					pw.println("\t\t[" + tour.getVertex(i).getY() + "," + tour.getVertex(i).getX() + "]");
+
+				}
+				else
+				{
+				pw.println("\t\t[" + tour.getVertex(i).getY() + "," + tour.getVertex(i).getX() + "],");
+				}
+			}
+			pw.println("\t]" + "\n}");
 			pw.flush();
 			pw.close();
 		}

@@ -26,20 +26,10 @@ public class URL_Builder
 		return link;
 	}
 	
-	public String getCurl()
+	public String getCurl(String algorithm)
 	{
-		String CurlStart = "curl -X POST -H \"Content-Type: application/json\" \"http://localhost:8989/route\" -d '{\"elevation\":false,\"points\":[";
-		String points = "";
-		String CurlEnd = "],\"vehicle\":\"car\"}'";
-		
-		for(int i = 0; i<tour.tourSize(); i++)
-		{
-			Vertex vertex = tour.getVertex(i);
-			points += "["+ vertex.getY() + "," + vertex.getX() + "],"; 
-		}
-		points += "["+ tour.getVertex(0).getY()+ "," + tour.getVertex(0).getX() + "]";
-		
-		String cURL = CurlStart + points + CurlEnd;
+		String cURL = "curl -X POST -H \"Content-Type: application/json\" \"http://localhost:8989/route\" -d @" + algorithm + "_tour.json";
+
 		return cURL;
 	}
 }
