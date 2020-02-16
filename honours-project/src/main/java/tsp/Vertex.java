@@ -4,24 +4,19 @@ public class Vertex
 	double x; 
 	double y;
 	int id;
-	String name;
+
 	
-	public void setVertex(double x, double y, int id, String name)
+	public void setVertex(double x, double y, int id)
 	{
 		this.x = x;
 		this.y = y;
 		this.id = id;
-		this.name = name;
+
 	}
 	
 	public int getId()
 	{
 		return this.id;
-	}
-	
-	public String getName()
-	{
-		return this.name;
 	}
 	
 	public double getX()

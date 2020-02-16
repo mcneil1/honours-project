@@ -35,10 +35,10 @@ public class Main
 	static int solver = EVOLUTIONARY_ALGORITHM;
 	static int numRuns = 1;
 	static int count = 0;
-	static String filePath = "results.csv";
+	static String filePath = "test_results.csv";
 	
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		
 		final Options options = new Options();
@@ -121,13 +121,12 @@ public class Main
 				
 				//System.out.println("Latitude = " + location[1] + " Longitude = " + location[2]);
 				
-				Double lat = Double.valueOf(location[2]);
-				Double lon = Double.valueOf(location[3]);
+				Double lat = Double.valueOf(location[1]);
+				Double lon = Double.valueOf(location[2]);
 				int id = Integer.valueOf(location[0]);
-				String name = location[1];
 				
 				Vertex newVertex = new Vertex();
-				newVertex.setVertex(lat, lon, id, name);
+				newVertex.setVertex(lat, lon, id);
 				TourManager.addVertex(newVertex);
 			}
 			br.close();
@@ -231,11 +230,15 @@ public class Main
 				Tour tour = myEA.runEA();
 				
 				URL_Builder myURL = new URL_Builder(tour);
-				String link = myURL.getURL();
+				String curl = myURL.getCurl();
 				
+				System.out.println(curl);
+		
 				String algorithm = "Evolutionary Algorithm";
 				
-				saveData(algorithm, link, tour.getDistance(), filePath);
+				
+				//saveData(algorithm, link, tour.getDistance(), filePath);
+				
 			}
 		}
 	}
@@ -248,7 +251,7 @@ public class Main
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			pw.println(algorithm+","+fileName+","+dist+","+link);
+			pw.println(dist+","+"800");
 			pw.flush();
 			pw.close();
 		}

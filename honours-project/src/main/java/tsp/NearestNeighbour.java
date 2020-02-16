@@ -69,7 +69,7 @@ public class NearestNeighbour
 			tour.setVertex(index, nextVertex);
 			if(verbose)
 			{
-				System.out.println("The nearest unvistied neighbour to " + CurrentVertex.getName() + " is " + nextVertex.getName());
+				System.out.println("The nearest unvistied neighbour to " + CurrentVertex.getId() + " is " + nextVertex.getId());
 			}
 			
 			//remove the visited neighbour from Vertices and distance list and make nextVertex = CurrentVertex

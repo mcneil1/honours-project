@@ -12,8 +12,8 @@ public class TabuSearch {
 	static Tour tour;
 	static int numberOfVertices = 0;
 	static double distance;
-	static int tabuSize = 1000; 
-	static int neighbourhoodSize = 1000;
+	static int tabuSize = 800; 
+	static int neighbourhoodSize = 300;
 	static ArrayList<String> tabuList = new ArrayList<String>();
 	static ArrayList<Vertex> oldTour = new ArrayList<Vertex>();
 	

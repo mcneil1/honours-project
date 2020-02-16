@@ -20,9 +20,26 @@ public class URL_Builder
 			Vertex vertex = tour.getVertex(i);
 			points += "point="+ vertex.getX() + "%2C" + vertex.getY() + "&"; 
 		}
-		points += "point="+ tour.getVertex(0).getX()+ "%2C" + tour.getVertex(0).getY() + "&";
+		points += "point="+ tour.getVertex(0).getY()+ "%2C" + tour.getVertex(0).getX() + "&";
 		
 		String link = UrlStart + points + UrlEnd;
 		return link;
+	}
+	
+	public String getCurl()
+	{
+		String CurlStart = "curl -X POST -H \"Content-Type: application/json\" \"http://localhost:8989/route\" -d '{\"elevation\":false,\"points\":[";
+		String points = "";
+		String CurlEnd = "],\"vehicle\":\"car\"}'";
+		
+		for(int i = 0; i<tour.tourSize(); i++)
+		{
+			Vertex vertex = tour.getVertex(i);
+			points += "["+ vertex.getY() + "," + vertex.getX() + "],"; 
+		}
+		points += "["+ tour.getVertex(0).getY()+ "," + tour.getVertex(0).getX() + "]";
+		
+		String cURL = CurlStart + points + CurlEnd;
+		return cURL;
 	}
 }

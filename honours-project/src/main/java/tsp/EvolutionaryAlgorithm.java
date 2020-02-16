@@ -7,7 +7,7 @@ public class EvolutionaryAlgorithm
 {
 	//Evolutionary algorithm parameters 
 	private static double mutationRate = 0.01;
-	private static final int tournamentSize = 50;
+	private static final int tournamentSize = 25;
 	static String fileName;
 	static int iteration = 0;
 	static int maxIterations;
@@ -161,7 +161,7 @@ public class EvolutionaryAlgorithm
 	{
 		//initialise population
 		bestTour = null;
-		Population pop = new Population(250, true);
+		Population pop = new Population(150, true);
 
 		System.out.println("Solver is EVOLUTIONARY ALGORITHM");
 		System.out.println("Filename is " + fileName);
