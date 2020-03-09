@@ -20,7 +20,7 @@ public class URL_Builder
 			Vertex vertex = tour.getVertex(i);
 			points += "point="+ vertex.getX() + "%2C" + vertex.getY() + "&"; 
 		}
-		points += "point="+ tour.getVertex(0).getY()+ "%2C" + tour.getVertex(0).getX() + "&";
+		points += "point="+ tour.getVertex(0).getX()+ "%2C" + tour.getVertex(0).getY() + "&";
 		
 		String link = UrlStart + points + UrlEnd;
 		return link;

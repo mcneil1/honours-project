@@ -26,12 +26,12 @@ public class Main
 	static int TABU_SEARCH = 4;
 	static int TWO_OPT = 5;
 	static int NEAREST_NEIGHBOUR = 6;
-	static double startTemp = 200;
-	static double endTemp = 0;
-	static double coolingRate = 0.995;
+	static double startTemp = 250;
+	static double endTemp = 0.1;
+	static double coolingRate = 0.75;
 	static boolean verbose = false;
 	static int iterations = 10000;
-	static int tabuSize = 50;
+	static int tabuSize = 100;
 	static int solver = EVOLUTIONARY_ALGORITHM;
 	static int numRuns = 1;
 	static int count = 0;
@@ -147,14 +147,19 @@ public class Main
 			
 			for(int i = 0; i < numRuns; i++)
 			{
+				long startTime = System.nanoTime();
 				Tour tour = mySA.runSA();
+				long endTime = System.nanoTime();
+				
+				long timeElapsed = endTime - startTime;
+				
+				String algorithm = "Simulated_Annealing"+ i;
 				
 				URL_Builder myURL = new URL_Builder(tour);
-				String link = myURL.getURL();
+				String curl = myURL.getCurl(algorithm);
 				
-				String algorithm = "Simulated_Annealing";
-				
-				saveData(algorithm,link, tour.getDistance(), filePath);
+				saveTour(algorithm, tour);
+				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
 			}
 		}
 		else if (solver == HILL_CLIMBER)
@@ -163,14 +168,19 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
+				long startTime = System.nanoTime();
 				Tour tour = myHC.runHC();
+				long endTime = System.nanoTime();
+				
+				long timeElapsed = endTime - startTime;
+				
+				String algorithm = "Hill_Climber"+ i;
 				
 				URL_Builder myURL = new URL_Builder(tour);
-				String link = myURL.getURL();
+				String curl = myURL.getCurl(algorithm);
 				
-				String algorithm = "Hill_Climber";
-				
-				saveData(algorithm,link, tour.getDistance(), filePath);
+				saveTour(algorithm, tour);
+				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
 			}
 		}
 		else if (solver == TABU_SEARCH)
@@ -179,14 +189,19 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
+				long startTime = System.nanoTime();
 				Tour tour = myTS.runTS();
+				long endTime = System.nanoTime();
+				
+				long timeElapsed = endTime - startTime;
+
+				String algorithm = "Tabu_Search"+ i;
 				
 				URL_Builder myURL = new URL_Builder(tour);
-				String link = myURL.getURL();
+				String curl = myURL.getCurl(algorithm);
 				
-				String algorithm = "Tabu_Search";
-				
-				saveData(algorithm,link, tour.getDistance(), filePath);
+				saveTour(algorithm, tour);
+				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
 			}
 		}
 		else if (solver == TWO_OPT)
@@ -195,14 +210,19 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
+				long startTime = System.nanoTime();
 				Tour tour = myTO.runTO();
+				long endTime = System.nanoTime();
+				
+				long timeElapsed = endTime - startTime;
+				
+				String algorithm = "2_OPt"+ i;
 				
 				URL_Builder myURL = new URL_Builder(tour);
-				String link = myURL.getURL();
+				String curl = myURL.getCurl(algorithm);
 				
-				String algorithm = "2_OPt";
-				
-				saveData(algorithm,link, tour.getDistance(), filePath);
+				saveTour(algorithm, tour);
+				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
 			}
 		}
 		else if (solver == NEAREST_NEIGHBOUR)
@@ -211,14 +231,19 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
+				long startTime = System.nanoTime();
 				Tour tour = myNN.runNN();
+				long endTime = System.nanoTime();
+				
+				long timeElapsed = endTime - startTime;
+				
+				String algorithm = "Nearest_Neighbour" + i;
 				
 				URL_Builder myURL = new URL_Builder(tour);
-				String link = myURL.getURL();
+				String curl = myURL.getCurl(algorithm);
 				
-				String algorithm = "Nearest_Neighbour";
-				
-				saveData(algorithm,link, tour.getDistance(), filePath);
+				saveTour(algorithm, tour);
+				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
 			}
 		}
 		else
@@ -227,23 +252,25 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
+				long startTime = System.nanoTime();
 				Tour tour = myEA.runEA();
+				long endTime = System.nanoTime();
 				
-				String algorithm = "Evolutionary_Algorithm";
+				long timeElapsed = endTime - startTime;
+				
+				String algorithm = "Evolutionary_Algorithm" + i;
 				
 				URL_Builder myURL = new URL_Builder(tour);
 				String curl = myURL.getCurl(algorithm);
 				
-				System.out.println(curl);
-				
 				saveTour(algorithm, tour);
-				//saveData(algorithm, curl, tour.getDistance(), filePath);
+				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
 				
 			}
 		}
 	}
 	
-	public static void saveData(String algorithm, String link, double dist, String filepath)
+	public static void saveData(String algorithm, String curl, double dist, String filepath, long time, Integer count)
 	{
 		try
 		{
@@ -251,7 +278,7 @@ public class Main
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
-			pw.println(link);
+			pw.println(dist+","+ time +"," + count + ","+ curl );
 			pw.flush();
 			pw.close();
 		}

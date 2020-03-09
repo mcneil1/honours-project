@@ -9,15 +9,16 @@ public class SimulatedAnnealing
 	static int iteration = 0;
 	static int maxIterations;
 	static boolean verbose;
-	static double startTemperature = 200;
+	static double startTemperature;
 	static double temperature;
-	static double endTemperature = 0;
-	static double coolingRate = 0.995;
+	static double endTemperature;
+	static double coolingRate;
 	static Tour tour;
 	static ArrayList<Vertex> oldTour = new ArrayList<Vertex>();;
-	static int numberOfVertices = 0;
+	static int numberOfVertices;
 	static double distance;
 	static double fitness;
+	static boolean hybrid = false;
 	
 	public SimulatedAnnealing(String file, int it, boolean ver, double sT, double eT, double cr, int count)
 	{
@@ -37,7 +38,15 @@ public class SimulatedAnnealing
 		System.out.println("Number of vertices is " + numberOfVertices);
 		System.out.println();
 		
-		tour = initialise();
+		if(hybrid == true)
+		{
+			NearestNeighbour myNN = new NearestNeighbour(fileName, verbose, numberOfVertices);
+			tour = myNN.runNN();		
+		}
+		else
+		{
+			tour = initialise();
+		}
 		temperature = startTemperature;
 		
 		for(int i = 0; i < tour.tourSize(); i++)
@@ -59,6 +68,8 @@ public class SimulatedAnnealing
 				if(verbose)
 				{
 					System.out.println("Iteration " + iteration + " found a better solution: " + tour.getDistance() +"km");
+					System.out.println("temperature = " + temperature);
+
 				}
 			}
 			else  //accept worse solution with some probability
@@ -73,6 +84,8 @@ public class SimulatedAnnealing
 					if(verbose)
 					{
 						System.out.println("Iteration " + iteration + " accepted a worse solution: " + tour.getDistance() +"km");
+						System.out.println("temperature = " + temperature);
+
 					}	
 				}
 				else
@@ -85,6 +98,8 @@ public class SimulatedAnnealing
 			}
 			
 			temperature *= coolingRate;
+
+			
 			
 			iteration++;
 			

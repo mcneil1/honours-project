@@ -6,14 +6,16 @@ import java.util.Random;
 public class EvolutionaryAlgorithm 
 {
 	//Evolutionary algorithm parameters 
-	private static double mutationRate = 0.01;
-	private static final int tournamentSize = 25;
+	private static double mutationRate = 0.05;
+	static int popSize = 400; 
+	private static final int tournamentSize = 10;
 	static String fileName;
 	static int iteration = 0;
 	static int maxIterations;
 	static boolean verbose;
 	static Tour bestTour;
 	static int numberOfVertices = 0;
+	static boolean hybrid = false;
 
 	public EvolutionaryAlgorithm(String f, int it, boolean v, int c)
 	{
@@ -37,9 +39,8 @@ public class EvolutionaryAlgorithm
 		Tour child = crossover(parent1, parent2);
 
 		//mutate a random tour
-		Random random = new Random();
-		int mutation = random.nextInt(pop.populationSize());
-		mutate(pop.getTour(mutation));
+
+		mutate(child);
 
 		if(verbose)
 		{
@@ -61,7 +62,7 @@ public class EvolutionaryAlgorithm
 
 		//replace random tour
 		Random r = new Random();
-		int index = r.nextInt(pop.populationSize()-1);
+		int index = pop.getWorst();
 		pop.saveTour(index, child);
 
 
@@ -118,21 +119,46 @@ public class EvolutionaryAlgorithm
 	//Mutation through swap operator 
 	private static void mutate(Tour tour)
 	{
-		//Loop through tour vertices
-		for (int tourPos1 = 0; tourPos1 < tour.tourSize(); tourPos1++)
+		if(Math.random() < mutationRate)
 		{
-			//Apply mutation rate
-			if(Math.random() < mutationRate)
+			int tourPos1 = (int) (tour.tourSize() * Math.random());
+			int tourPos2 = (int) (tour.tourSize() * Math.random());
+			while(tourPos1 == tourPos2)
 			{
-				int tourPos2 = (int) (tour.tourSize() * Math.random());
-				Vertex vertex1 = tour.getVertex(tourPos1);
-				Vertex vertex2 = tour.getVertex(tourPos2);
-
-				//swap positions
-				tour.setVertex(tourPos2, vertex1);
-				tour.setVertex(tourPos1, vertex2);
+				tourPos2 = (int) (tour.tourSize() * Math.random());
 			}
+			if(tourPos1 > tourPos2)
+			{
+				int swap = tourPos1;
+				tourPos1 = tourPos2;
+				tourPos2 = swap;
+			}
+			int j = tourPos2;
+
+			Tour newTour = new Tour();
+			for(int i = 0; i < tourPos1; i++)
+			{
+				newTour.setVertex(i, tour.getVertex(i));
+			}
+			for(int i = tourPos1; i <= tourPos2; i++)
+			{
+				newTour.setVertex(i, tour.getVertex(j));
+				j--;
+			}
+			for(int i = tourPos2+1; i < tour.tourSize(); i++)
+			{
+				newTour.setVertex(i, tour.getVertex(i));
+			}
+			
+			for(int i = 0; i < tourPos1; i++)
+			{
+				
+			}
+			
+			tour = newTour;
+
 		}
+
 	}
 
 	//Selects a candidate tour for crossover
@@ -161,7 +187,17 @@ public class EvolutionaryAlgorithm
 	{
 		//initialise population
 		bestTour = null;
-		Population pop = new Population(150, true);
+		Population pop = new Population(popSize, true);
+		if(hybrid == true)
+		{
+			for(int i = 0; i < (popSize/10); i++)
+			{
+				NearestNeighbour myNN = new NearestNeighbour(fileName, verbose, numberOfVertices);
+				Tour tour = myNN.runNN();
+				int index = pop.getWorst();
+				pop.saveTour(index, tour);
+			}
+		}
 
 		System.out.println("Solver is EVOLUTIONARY ALGORITHM");
 		System.out.println("Filename is " + fileName);

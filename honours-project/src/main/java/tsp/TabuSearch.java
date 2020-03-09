@@ -12,10 +12,12 @@ public class TabuSearch {
 	static Tour tour;
 	static int numberOfVertices = 0;
 	static double distance;
-	static int tabuSize = 800; 
-	static int neighbourhoodSize = 300;
+	static int tabuSize; 
+	static Tour best;
+	static int neighbourhoodSize = 250;
 	static ArrayList<String> tabuList = new ArrayList<String>();
 	static ArrayList<Vertex> oldTour = new ArrayList<Vertex>();
+	static boolean hybrid = false;
 	
 	public TabuSearch(String file, int it, boolean ver, int count, int size)
 	{
@@ -33,7 +35,18 @@ public class TabuSearch {
 		System.out.println("Number of vertices is " + numberOfVertices);
 		System.out.println();
 		
-		tour = initialise();
+		if(hybrid == true)
+		{
+			NearestNeighbour myNN = new NearestNeighbour(fileName, verbose, numberOfVertices);
+			tour = myNN.runNN();		
+		}
+		else
+		{
+			tour = initialise();
+		}
+		
+		best = tour;
+		
 		for(int i = 0; i < tour.tourSize(); i++)
 		{
 			oldTour.add(tour.getVertex(i));
@@ -140,12 +153,24 @@ public class TabuSearch {
 			if (tour.getDistance() == distances.get(distIndex) && !tabuList.contains(tour.toString()))
 			{
 				t = tour;
+				if(tour.getDistance() < best.getDistance())
+				{
+					best = tour;
+				}
 				break;
 			}
 			else if(tour.getDistance() == distances.get(distIndex) && tabuList.contains(tour.toString()))
 			{
-				distIndex++;
-				i = 0;
+				if(tour.getDistance() <= best.getDistance())
+				{
+					t = tour;
+					break;
+				}
+				else
+				{
+					distIndex++;
+					i = 0;
+				}
 			}
 		}
 		/*
