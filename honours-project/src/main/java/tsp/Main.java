@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Timer;
 
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.CommandLineParser;
@@ -26,16 +27,17 @@ public class Main
 	static int TABU_SEARCH = 4;
 	static int TWO_OPT = 5;
 	static int NEAREST_NEIGHBOUR = 6;
-	static double startTemp = 250;
-	static double endTemp = 0.1;
-	static double coolingRate = 0.75;
+	static double startTemp = 500;
+	static double endTemp = 0;
+	static double coolingRate = 0.8;
 	static boolean verbose = false;
-	static int iterations = 10000;
-	static int tabuSize = 100;
+	static int iterations = Integer.MAX_VALUE;
+	static int tabuSize = 1000;
 	static int solver = EVOLUTIONARY_ALGORITHM;
 	static int numRuns = 1;
 	static int count = 0;
-	static String filePath = "results.csv";
+	static String filePath = "test_results.csv";
+	Timer timer = new Timer();
 	
 	
 	public static void main(String[] args) throws Exception
@@ -169,7 +171,7 @@ public class Main
 			for (int i = 0; i < numRuns; i++)
 			{
 				long startTime = System.nanoTime();
-				Tour tour = myHC.runHC();
+ 				Tour tour = myHC.runHC();
 				long endTime = System.nanoTime();
 				
 				long timeElapsed = endTime - startTime;
@@ -252,11 +254,10 @@ public class Main
 			
 			for (int i = 0; i < numRuns; i++)
 			{
-				long startTime = System.nanoTime();
-				Tour tour = myEA.runEA();
-				long endTime = System.nanoTime();
+				Tour tour = new Tour();
 				
-				long timeElapsed = endTime - startTime;
+				tour = myEA.runEA();
+					
 				
 				String algorithm = "Evolutionary_Algorithm" + i;
 				
@@ -264,7 +265,7 @@ public class Main
 				String curl = myURL.getCurl(algorithm);
 				
 				saveTour(algorithm, tour);
-				saveData(algorithm, curl, tour.getDistance(), filePath, timeElapsed, count);
+				saveData(algorithm, curl, tour.getDistance(), filePath, iterations, count);
 				
 			}
 		}
@@ -301,11 +302,11 @@ public class Main
 					+ "\n\t\"elevation\": false,"
 					+"\n\t\"vehicle\": \"car\","
 					+"\n\t\"points\": [");
-			for(int i = 0; i < tour.tourSize();i++)
+			for(int i = 0; i <= tour.tourSize();i++)
 			{
-				if(i == tour.tourSize()-1)
+				if(i == tour.tourSize())
 				{
-					pw.println("\t\t[" + tour.getVertex(i).getY() + "," + tour.getVertex(i).getX() + "]");
+					pw.println("\t\t[" + tour.getVertex(0).getY() + "," + tour.getVertex(0).getX() + "]");
 
 				}
 				else

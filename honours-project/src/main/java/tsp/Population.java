@@ -27,14 +27,7 @@ public class Population
 	{
 		tours[index] = tour;
 	}
-	
-	public void swapTours(Population pop, int index1, int index2)
-	{
-		Tour tour1 = pop.getTour(index1);
-		Tour tour2 = pop.getTour(index2);
-		pop.saveTour(index1, tour2);
-		pop.saveTour(index2, tour1);
-	}
+
 	
 	//Get a tour from the population
 	public Tour getTour(int index)

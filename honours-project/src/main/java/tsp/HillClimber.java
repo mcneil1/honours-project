@@ -36,12 +36,14 @@ public class HillClimber {
 		
 		System.out.println("Initial distance: " + tour.getDistance() + "km");
 		
-		for(int i = 0; i < maxIterations; i++)
-		{
+		long t= System.currentTimeMillis();
+
+		long end = t+ 300000;
+
+		while(System.currentTimeMillis() < end) {
 			distance = tour.getDistance();
 			swapOperator(tour);
-			iteration++;
-			
+			iteration++;	
 		}
 		
 		iteration = 0;

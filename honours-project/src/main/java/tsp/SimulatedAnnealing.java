@@ -18,7 +18,7 @@ public class SimulatedAnnealing
 	static int numberOfVertices;
 	static double distance;
 	static double fitness;
-	static boolean hybrid = false;
+
 	
 	public SimulatedAnnealing(String file, int it, boolean ver, double sT, double eT, double cr, int count)
 	{
@@ -38,15 +38,9 @@ public class SimulatedAnnealing
 		System.out.println("Number of vertices is " + numberOfVertices);
 		System.out.println();
 		
-		if(hybrid == true)
-		{
-			NearestNeighbour myNN = new NearestNeighbour(fileName, verbose, numberOfVertices);
-			tour = myNN.runNN();		
-		}
-		else
-		{
-			tour = initialise();
-		}
+
+		tour = initialise();
+		
 		temperature = startTemperature;
 		
 		for(int i = 0; i < tour.tourSize(); i++)
@@ -56,8 +50,11 @@ public class SimulatedAnnealing
 		
 		System.out.println("Initial distance: " + tour.getDistance() + "km");
 		
-		while(iteration < maxIterations && temperature > endTemperature)
-		{
+		//run for 5 minutes
+		long t= System.currentTimeMillis();
+		long end = t+ 300000;
+		while(System.currentTimeMillis() < end) {
+			
 			distance = tour.getDistance();
 			fitness = tour.getFitness();
 			tour = swapOperator(tour);

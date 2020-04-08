@@ -30,8 +30,11 @@ public class TwoOpt
 		
 		System.out.println("Initial distance: " + tour.getDistance() + "km");
 		
-		for(int i = 0; i < maxIterations; i++)
-		{
+		long t= System.currentTimeMillis();
+
+		long end = t+ 300000;
+
+		while(System.currentTimeMillis() < end) {
 			//copy the tour
 			Tour newTour = new Tour();
 			for(int tourSize = 0; tourSize<tour.tourSize(); tourSize++)

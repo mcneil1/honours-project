@@ -7,7 +7,7 @@ public class EvolutionaryAlgorithm
 {
 	//Evolutionary algorithm parameters 
 	private static double mutationRate = 0.05;
-	static int popSize = 400; 
+	static int popSize = 100; 
 	private static final int tournamentSize = 10;
 	static String fileName;
 	static int iteration = 0;
@@ -15,7 +15,6 @@ public class EvolutionaryAlgorithm
 	static boolean verbose;
 	static Tour bestTour;
 	static int numberOfVertices = 0;
-	static boolean hybrid = false;
 
 	public EvolutionaryAlgorithm(String f, int it, boolean v, int c)
 	{
@@ -60,8 +59,7 @@ public class EvolutionaryAlgorithm
 		}
 
 
-		//replace random tour
-		Random r = new Random();
+		//replace worst tour
 		int index = pop.getWorst();
 		pop.saveTour(index, child);
 
@@ -160,6 +158,7 @@ public class EvolutionaryAlgorithm
 		}
 
 	}
+	
 
 	//Selects a candidate tour for crossover
 	private static Tour tournamentSelection(Population pop)
@@ -185,19 +184,10 @@ public class EvolutionaryAlgorithm
 
 	public Tour runEA()
 	{
+
 		//initialise population
 		bestTour = null;
 		Population pop = new Population(popSize, true);
-		if(hybrid == true)
-		{
-			for(int i = 0; i < (popSize/10); i++)
-			{
-				NearestNeighbour myNN = new NearestNeighbour(fileName, verbose, numberOfVertices);
-				Tour tour = myNN.runNN();
-				int index = pop.getWorst();
-				pop.saveTour(index, tour);
-			}
-		}
 
 		System.out.println("Solver is EVOLUTIONARY ALGORITHM");
 		System.out.println("Filename is " + fileName);
@@ -207,9 +197,12 @@ public class EvolutionaryAlgorithm
 		System.out.println("Initial distance: " + pop.getFittest().getDistance()+ "km");
 
 		//Evolve population for n maxIterations 
-		pop = EvolutionaryAlgorithm.evolvePopulation(pop);
-		for (int i = 0; i < maxIterations; i++)
-		{
+		
+		long t= System.currentTimeMillis();
+
+		long end = t+ 300000;
+
+		while(System.currentTimeMillis() < end) {
 			pop = EvolutionaryAlgorithm.evolvePopulation(pop);
 			iteration++;
 		}
